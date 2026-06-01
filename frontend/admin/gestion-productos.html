@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión de Productos</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f2f2f2;
+}
+
+
+.header{
+    width:100%;
+    height:64px;
+    background:#008800;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+}
+
+.logo{
+    color:#fff;
+    font-size:22px;
+    font-style:italic;
+    font-weight:700;
+}
+
+.avatar{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    overflow:hidden;
+    border:2px solid #fff;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+
+.page{
+    max-width:980px;
+    margin:60px auto;
+}
+
+.title{
+    font-size:31px;
+    font-weight:700;
+    color:#222;
+    margin-bottom:50px;
+}
+
+
+
+.filters{
+    display:flex;
+    gap:16px;
+    align-items:center;
+    margin-bottom:58px;
+}
+
+.search{
+    width:290px;
+    height:40px;
+    border:1px solid #d8d8d8;
+    border-radius:6px;
+    background:white;
+    padding:0 14px;
+    font-size:14px;
+}
+
+.select{
+    width:170px;
+    height:40px;
+    border:1px solid #d8d8d8;
+    border-radius:6px;
+    padding:0 14px;
+    font-size:14px;
+    background:white;
+}
+
+.btn-clear{
+    width:130px;
+    height:40px;
+    border-radius:6px;
+    border:1px solid #d8d8d8;
+    background:#f7f7f7;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn-create{
+    width:180px;
+    height:40px;
+    border:none;
+    border-radius:6px;
+    background:#3d73c9;
+    color:white;
+    font-weight:700;
+    cursor:pointer;
+}
+
+
+.products-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.products-table thead th{
+    text-align:left;
+    color:#666;
+    font-size:14px;
+    font-weight:700;
+    padding:18px 14px;
+    border-bottom:2px solid #e7e7e7;
+}
+
+.products-table tbody td{
+    padding:20px 14px;
+    border-bottom:1px solid #e9e9e9;
+    vertical-align:middle;
+    font-size:14px;
+    color:#333;
+}
+
+.products-table tbody tr{
+    height:96px;
+}
+
+
+
+
+.product-image{
+    width:62px;
+    height:62px;
+    border-radius:6px;
+    object-fit:cover;
+}
+
+
+.price{
+    font-weight:700;
+    color:#222;
+    font-size:15px;
+}
+
+.stock{
+    text-align:center;
+}
+.badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    height:28px;
+    padding:0 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.stock-ok{
+    background:#7d9f8c;
+    color:white;
+}
+
+.stock-out{
+    background:#c43849;
+    color:white;
+}
+
+.stock-low{
+    background:#ececef;
+    color:#666;
+}
+
+.actions{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    font-size:18px;
+    color:#666;
+    cursor:pointer;
+}
+
+.pagination{
+    width:100%;
+    text-align:right;
+    margin-top:22px;
+    color:#666;
+    font-size:14px;
+}
+
+@media(max-width:1100px){
+
+    .page{
+        width:95%;
+        overflow-x:auto;
+    }
+
+    .filters{
+        flex-wrap:wrap;
+    }
+
+    .products-table{
+        min-width:950px;
+    }
+
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        ✳ logo
+    </div>
+
+    <div class="avatar">
+        <a href="perfil-admin.html">
+          <img src="https://i.pravatar.cc/150?img=32">  
+        </a>
+        
+    </div>
+
+</header>
+
+<div class="page">
+
+    <h1 class="title">
+        Gestión de Productos
+    </h1>
+
+    <div class="filters">
+
+        <input
+            class="search"
+            placeholder="🔍 Buscar productos..."
+        >
+
+        <select class="select">
+            <option>Categoría</option>
+        </select>
+
+        <select class="select">
+            <option>Precio</option>
+        </select>
+
+        <button class="btn-clear">
+            Limpiar Filtros
+        </button>
+
+        <button class="btn-create">
+            Crear Nuevo Producto
+        </button>
+
+    </div>
+
+    <table class="products-table">
+
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>
+                    <img
+                    class="product-image"
+                    src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=200">
+                </td>
+
+                <td>
+                    Aceite Esencial de Lavanda
+                    Orgánica
+                </td>
+
+                <td></td>
+
+                <td class="price">
+                    $25.000
+                </td>
+
+                <td class="stock">
+                    150
+                </td>
+                <td>
+    <span class="badge stock-ok">
+        en stock
+    </span>
+</td>
+
+<td>
+    <div class="actions">
+        <span>✎</span>
+        <span>🗑</span>
+    </div>
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+    <img
+    class="product-image"
+    src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=200">
+</td>
+
+<td>
+    Té Detox Hebal Premium
+</td>
+
+<td></td>
+
+<td class="price">
+    $18.500
+</td>
+
+<td class="stock">
+    50
+</td>
+
+<td>
+    <span class="badge stock-ok">
+        En stock
+    </span>
+</td>
+
+<td>
+    <div class="actions">
+        <span>✎</span>
+        <span>🗑</span>
+    </div>
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+    <img
+    class="product-image"
+    src="https://images.unsplash.com/photo-1607006483225-5e4b0b67d7c0?w=200">
+</td>
+
+<td>
+    Jabón Artesanal de Avena y Miel
+</td>
+
+<td></td>
+
+<td class="price">
+    $12.000
+</td>
+
+<td class="stock">
+    0
+</td>
+
+<td>
+    <span class="badge stock-out">
+        Agotado
+    </span>
+</td>
+
+<td>
+    <div class="actions">
+        <span>✎</span>
+        <span>🗑</span>
+    </div>
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+    <img
+    class="product-image"
+    src="https://images.unsplash.com/photo-1577401239170-897942555fb3?w=200">
+</td>
+
+<td>
+    Suplemento de Vitamina D3
+    Natural
+</td>
+
+<td></td>
+
+<td class="price">
+    $35.000
+</td>
+
+<td class="stock">
+    75
+</td>
+
+<td>
+    <span class="badge stock-ok">
+        En stock
+    </span>
+</td>
+
+<td>
+    <div class="actions">
+        <span>✎</span>
+        <span>🗑</span>
+    </div>
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+    <img
+    class="product-image"
+    src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=200">
+</td>
+
+<td>
+    Crema Hidratante Fácil de día
+</td>
+
+<td></td>
+
+<td class="price">
+    $48.000
+</td>
+
+<td class="stock">
+    10
+</td>
+
+<td>
+    <span class="badge stock-low">
+        Pocas unidades
+    </span>
+</td>
+
+<td>
+    <div class="actions">
+        <span>✎</span>
+        <span>🗑</span>
+    </div>
+</td>
+
+</tr>
+        </tbody>
+
+    </table>
+
+    <div class="pagination">
+        Página 1 de 5
+    </div>
+
+</div>
+
+</body>
+</html>

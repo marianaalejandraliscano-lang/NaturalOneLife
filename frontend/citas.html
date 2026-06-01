@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/estilos.css">
+<title>Citas</title>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="form">
+
+<h1>Agendar Nueva Cita</h1>
+
+<br>
+
+<input type="date">
+
+<select>
+<option>09:00 AM</option>
+<option>10:00 AM</option>
+</select>
+
+<select>
+<option>Consulta Nutricional</option>
+<option>Terapia Detox</option>
+</select>
+
+<textarea rows="5" placeholder="Notas adicionales"></textarea>
+
+<button class="btn">
+Confirmar Cita
+</button>
+
+</div>
+
+<div class="cards">
+
+<h1>Citas Próximas</h1>
+
+<br>
+
+<div class="card">
+
+<div>
+<h2>Consulta Nutricional</h2>
+<p>2024-08-15 | 10:00 AM</p>
+</div>
+
+<div class="status">
+Confirmada
+</div>
+
+</div>
+
+<div class="card">
+
+<div>
+<h2>Terapia Detox</h2>
+<p>2024-08-20 | 03:00 PM</p>
+</div>
+
+<div class="status">
+Pendiente
+</div>
+
+</div>
+
+</div>
+<button class="btn" onclick="window.history.back()">
+Volver
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Productos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+}
+
+header{
+    background:#008c00;
+    height:62px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.navbar{
+    width:95%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.menu{
+    display:flex;
+    gap:35px;
+}
+
+.menu a{
+    text-decoration:none;
+    color:white;
+    font-size:15px;
+    font-weight:500;
+}
+
+.menu .active{
+    font-weight:700;
+}
+
+.right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.search{
+    display:flex;
+    align-items:center;
+}
+
+.search input{
+    width:300px;
+    height:42px;
+    border:none;
+    border-radius:6px;
+    padding:0 15px;
+    outline:none;
+}
+
+.search button{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:6px;
+    margin-left:8px;
+    cursor:pointer;
+}
+
+.profile{
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.container{
+    width:90%;
+    margin:30px auto;
+    display:flex;
+    gap:35px;
+}
+
+.sidebar{
+    width:290px;
+}
+
+.filter-card{
+    background:white;
+    border-radius:16px;
+    padding:28px;
+    box-shadow:0 3px 10px rgba(0,0,0,.18);
+}
+
+.filter-card h2{
+    font-size:20px;
+    margin-bottom:30px;
+}
+
+.filter-card h3{
+    font-size:16px;
+    margin-bottom:15px;
+    margin-top:25px;
+}
+
+.filter-card label{
+    display:block;
+    margin-bottom:18px;
+    font-size:15px;
+}
+
+.filter-card input[type="text"]{
+    width:100%;
+    height:45px;
+    border:1px solid #999;
+    border-radius:8px;
+    padding:0 12px;
+}
+
+.range{
+    width:100%;
+    accent-color:#008c00;
+}
+
+.price{
+    display:flex;
+    justify-content:space-between;
+    margin-top:8px;
+    font-size:14px;
+}
+
+.btn-filter{
+    width:100%;
+    height:48px;
+    border:none;
+    border-radius:8px;
+    background:#008c00;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:25px;
+}
+
+.products{
+    flex:1;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+.product-card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(0,0,0,.18);
+    transition:.2s;
+}
+
+.product-card:hover{
+    transform:translateY(-3px);
+}
+
+.product-img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    display:block;
+}
+
+.product-body{
+    padding:18px;
+}
+
+.product-title{
+    font-size:18px;
+    font-weight:500;
+    color:#222;
+    line-height:1.4;
+    min-height:55px;
+}
+
+.product-price{
+    font-size:20px;
+    font-weight:700;
+    margin-top:10px;
+    color:#111;
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    margin-top:12px;
+    margin-bottom:14px;
+}
+
+.stock{
+    background:#3cb371;
+    color:white;
+}
+
+.low{
+    background:#343a40;
+    color:white;
+}
+
+.out{
+    background:#dc3545;
+    color:white;
+}
+
+.product-note{
+    font-size:13px;
+    color:#555;
+    margin-bottom:14px;
+    min-height:18px;
+}
+
+.actions{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:10px;
+}
+
+.btn-cart,
+.btn-details{
+    flex:1;
+    height:42px;
+    border-radius:6px;
+    font-size:14px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+}
+
+.btn-cart{
+    border:none;
+    background:#009900;
+    color:white;
+    font-weight:600;
+}
+
+.btn-cart:hover{
+    background:#007d00;
+}
+
+.btn-details{
+    border:1px solid #999;
+    background:white;
+    color:#333;
+}
+
+.btn-details:hover{
+    background:#f5f5f5;
+}
+
+@media(max-width:1200px){
+
+.products{
+    grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:768px){
+
+.container{
+    flex-direction:column;
+}
+
+.sidebar{
+    width:100%;
+}
+
+.products{
+    grid-template-columns:1fr;
+}
+
+.search input{
+    width:180px;
+}
+
+.menu{
+    gap:15px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="navbar">
+
+<div class="menu">
+<a href="../inicio.html">Inicio</a>
+<a href="catalogo_de_productos.html">Productos</a>
+<a href="gestion_citas_usuarios.html" class="active">Citas</a>
+<a href="../carrito.html">Carrito</a>
+</div>
+
+<div class="right">
+
+<div class="search">
+<input type="text" placeholder="Buscar productos...">
+<button>🔍</button>
+</div>
+
+<a href="perfil_usuario.html">
+    <img src="img/perfil.jpg" class="profile">
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+<div class="container">
+
+<div class="sidebar">
+
+<div class="filter-card">
+
+<h2>Filtrar Productos</h2>
+
+<h3>Categorías</h3>
+
+<label><input type="radio" name="cat" checked> Todas</label>
+<label><input type="radio" name="cat"> Purgantes</label>
+<label><input type="radio" name="cat"> Vitaminas</label>
+<label><input type="radio" name="cat"> Desintoxicantes</label>
+<label><input type="radio" name="cat"> Nutrientes</label>
+
+<h3>Buscar por Nombre</h3>
+
+<input type="text" placeholder="Buscar...">
+
+<h3>Filtrar por Precio</h3>
+
+<input type="range" class="range">
+
+<div class="price">
+<span>$0</span>
+<span>$200</span>
+</div>
+
+<button class="btn-filter">
+Aplicar Filtros
+</button>
+
+</div>
+
+</div>
+
+<div class="products">
+    <div class="product-card">
+    <img src="img/extracto-purificante.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Extracto Purificante Herbal</h3>
+        <div class="product-price">$29.990</div>
+        <span class="badge stock">En Stock</span>
+        <div class="actions">
+    <a href="../carrito.html" class="btn-cart">
+        Añadir al Carrito
+    </a>
+
+    <a href="producto.html" class="btn-details">
+        Ver Detalles
+    </a>
+</div>
+        </div>
+    </div>
+</div>
+
+<div class="product-card">
+    <img src="img/capsulas-vitaminicas.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Cápsulas Vitamínicas Esenciales</h3>
+        <div class="product-price">$19.500</div>
+        <div class="product-note">Pocas Unidades</div>
+        <div class="actions">
+    <a href="../carrito.html" class="btn-cart">
+        Añadir al Carrito
+    </a>
+
+    <a href="producto.html" class="btn-details">
+        Ver Detalles
+    </a>
+</div>
+    </div>
+</div>
+
+<div class="product-card">
+    <img src="img/te-desintoxicante.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Té Desintoxicante Orgánico</h3>
+        <div class="product-price">$15.750</div>
+        <span class="badge stock">En Stock</span>
+        <div class="actions">
+    <a href="../carrito.html" class="btn-cart">
+        Añadir al Carrito
+    </a>
+
+    <a href="producto.html" class="btn-details">
+        Ver Detalles
+    </a>
+</div>
+    </div>
+</div>
+
+<div class="product-card">
+    <img src="img/suplemento-vital.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Suplemento Nutritivo Vital</h3>
+        <div class="product-price">$34.000</div>
+        <span class="badge stock">En Stock</span>
+       <div class="actions">
+    <a href="../carrito.html" class="btn-cart">
+        Añadir al Carrito
+    </a>
+
+    <a href="producto.html" class="btn-details">
+        Ver Detalles
+    </a>
+</div>
+    </div>
+</div>
+
+<div class="product-card">
+    <img src="img/elixir-digestivo.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Elixir Digestivo Natural</h3>
+        <div class="product-price">$25.990</div>
+        <span class="badge stock">En Stock</span>
+       <div class="actions">
+    <a href="../carrito.html" class="btn-cart">
+        Añadir al Carrito
+    </a>
+
+    <a href="producto.html" class="btn-details">
+        Ver Detalles
+    </a>
+</div>
+    </div>
+</div>
+
+<div class="product-card">
+    <img src="img/comprimidos-hierbas.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Comprimidos de Hierbas Calmantes</h3>
+        <div class="product-price">$12.990</div>
+        <span class="badge low">Pocas Unidades</span>
+        <div class="actions">
+    <a href="../carrito.html" class="btn-cart">
+        Añadir al Carrito
+    </a>
+
+    <a href="producto.html" class="btn-details">
+        Ver Detalles
+    </a>
+</div>
+    </div>
+</div>
+
+<div class="product-card">
+    <img src="img/clorofila.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Concentrado de Clorofila Líquida</h3>
+        <div class="product-price">$45.000</div>
+        <span class="badge stock">En Stock</span>
+       <div class="actions">
+    <a href="../carrito.html" class="btn-cart">
+        Añadir al Carrito
+    </a>
+
+    <a href="producto.html" class="btn-details">
+        Ver Detalles
+    </a>
+</div>
+    </div>
+</div>
+
+<div class="product-card">
+    <img src="img/balsamo.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Bálsamo Regenerador Dérmico</h3>
+        <div class="product-price">$18.250</div>
+        <span class="badge stock">En Stock</span>
+        <div class="actions">
+
+    <a href="../carrito.html">
+        <button class="btn-cart">
+            Añadir al Carrito
+        </button>
+    </a>
+
+    <a href="producto.html">
+        <button class="btn-details">
+            Ver Detalles
+        </button>
+    </a>
+
+</div>
+    </div>
+</div>
+
+<div class="product-card">
+    <img src="img/infusion-botanica.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Infusión Energizante Botánica</h3>
+        <div class="product-price">$9.990</div>
+        <span class="badge out">Agotado</span>
+        
+       <div class="actions">
+    <a href="../carrito.html" class="btn-cart">
+        Añadir al Carrito
+    </a>
+
+    <a href="producto.html" class="btn-details">
+        Ver Detalles
+    </a>
+</div>
+    </div>
+</div>
+
+<div class="product-card">
+    <img src="img/oregano.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Aceite de Orégano Silvestre</h3>
+        <div class="product-price">$22.000</div>
+        <span class="badge stock">En Stock</span>
+       <div class="actions">
+    <a href="../carrito.html" class="btn-cart">
+        Añadir al Carrito
+    </a>
+
+    <a href="producto.html" class="btn-details">
+        Ver Detalles
+    </a>
+</div>
+    </div>
+</div>
+
+<div class="product-card">
+    <img src="img/aloe-vera.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Jugo de Aloe Vera Puro</h3>
+        <div class="product-price">$16.500</div>
+        <div class="product-note">Pocas Unidades</div>
+        <div class="actions">
+    <a href="../carrito.html" class="btn-cart">
+        Añadir al Carrito
+    </a>
+
+    <a href="producto.html" class="btn-details">
+        Ver Detalles
+    </a>
+</div>
+    </div>
+</div>
+
+<div class="product-card">
+    <img src="img/carbon-activado.jpg" class="product-img">
+    <div class="product-body">
+        <h3 class="product-title">Tabletas de Carbón Activado</h3>
+        <div class="product-price">$14.999</div>
+        <span class="badge stock">En Stock</span>
+        <div class="actions">
+    <a href="../carrito.html" class="btn-cart">
+        Añadir al Carrito
+    </a>
+
+    <a href="producto.html" class="btn-details">
+        Ver Detalles
+    </a>
+</div>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filtro de Citas</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f3f3f3;
+    padding:40px;
+}
+
+.back-button{
+    width:38px;
+    height:38px;
+    border-radius:8px;
+    background:#0a8d14;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:30px;
+    cursor:pointer;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+
+.card{
+    background:white;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,.20);
+    padding:36px;
+}
+
+.card + .card{
+    margin-top:30px;
+}
+
+.title{
+    font-size:20px;
+    font-weight:700;
+    color:#222;
+    margin-bottom:42px;
+}
+
+.filters{
+    display:flex;
+    gap:22px;
+    flex-wrap:wrap;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:10px;
+    color:#222;
+}
+
+.input,
+.select{
+    width:240px;
+    height:42px;
+    border:1px solid #dddddd;
+    border-radius:4px;
+    padding:0 14px;
+    font-size:14px;
+    color:#555;
+}
+
+.bottom-actions{
+    margin-top:18px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.available{
+    background:#eef2f5;
+    border-radius:18px;
+    padding:10px 16px;
+    font-size:14px;
+    font-weight:600;
+    color:#333;
+}
+
+.filter-btn{
+    width:145px;
+    height:40px;
+    border:none;
+    border-radius:4px;
+    background:#0a8d14;
+    color:white;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.results-title{
+    font-size:18px;
+    font-weight:700;
+    color:#222;
+    margin-bottom:28px;
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table thead th{
+    text-align:left;
+    padding:18px;
+    border-bottom:1px solid #dddddd;
+    color:#666;
+    font-size:14px;
+    font-weight:600;
+}
+
+.table tbody td{
+    padding:18px;
+    border-bottom:1px solid #dddddd;
+    font-size:14px;
+    color:#333;
+}
+
+.patient{
+    font-weight:600;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:82px;
+    height:28px;
+    padding:0 12px;
+    border-radius:18px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.confirmed{
+    background:#0d6cc8;
+    color:white;
+}
+
+.cancelled{
+    background:#d90000;
+    color:white;
+}
+
+.pending{
+    background:#f1f1f1;
+    color:#222;
+}
+
+@media(max-width:1100px){
+
+    body{
+        padding:20px;
+    }
+
+    .filters{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .input,
+    .select{
+        width:100%;
+    }
+
+    .card{
+        overflow-x:auto;
+    }
+
+    .table{
+        min-width:900px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+<a href="perfil-admin.html">
+  <div class="back-button">
+←
+</div>
+  
+</a>
+
+<div class="container">
+
+<div class="card">
+
+<div class="title">
+Filtro de Citas
+</div>
+
+<div class="filters">
+
+<div class="form-group">
+<label>Fecha</label>
+<input
+class="input"
+type="text"
+value="August 28th, 2025">
+</div>
+
+<div class="form-group">
+<label>Departamento</label>
+<select class="select">
+<option>Seleccionar departamento</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Municipio</label>
+<select class="select">
+<option>Seleccionar municipio</option>
+</select>
+</div>
+
+</div>
+
+<div class="bottom-actions">
+
+<div class="available">
+🗓 25 Citas Disponibles
+</div>
+
+<button class="filter-btn">
+Aplicar filtro
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="results-title">
+Resultados de Citas
+</div>
+
+<table class="table">
+
+<thead>
+<tr>
+<th>Hora</th>
+<th>Paciente</th>
+<th>Departamento</th>
+<th>Municipio</th>
+<th>Estado</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>09:00 AM</td>
+<td class="patient">Ana García</td>
+<td>Antioquia</td>
+<td>Medellín</td>
+<td>
+    <span class="badge confirmed">
+        Confirmada
+    </span>
+</td>
+</tr>
+
+<tr>
+<td>10:30 AM</td>
+<td class="patient">Carlos López</td>
+<td>Boyacá</td>
+<td>Tunja</td>
+<td>
+    <span class="badge pending">
+        Pendiente
+    </span>
+</td>
+</tr>
+
+<tr>
+<td>11:00 AM</td>
+<td class="patient">María Rodríguez</td>
+<td>Amazonas</td>
+<td>Leticia</td>
+<td>
+    <span class="badge confirmed">
+        Confirmada
+    </span>
+</td>
+</tr>
+
+<tr>
+<td>02:00 PM</td>
+<td class="patient">Pedro Gómez</td>
+<td>Antioquia</td>
+<td>Envigado</td>
+<td>
+    <span class="badge cancelled">
+        Cancelada
+    </span>
+</td>
+</tr>
+
+<tr>
+<td>03:45 PM</td>
+<td class="patient">Laura Martínez</td>
+<td>Boyacá</td>
+<td>Sogamoso</td>
+<td>
+    <span class="badge confirmed">
+        Confirmada
+    </span>
+</td>
+</tr>
+
+<tr>
+<td>04:00 PM</td>
+<td class="patient">Miguel Torres</td>
+<td>Amazonas</td>
+<td>Puerto Nariño</td>
+<td>
+    <span class="badge pending">
+        Pendiente
+    </span>
+</td>
+</tr>
+
+<tr>
+<td>09:30 AM</td>
+<td class="patient">Sofía Hernández</td>
+<td>Antioquia</td>
+<td>Medellín</td>
+<td>
+    <span class="badge confirmed">
+        Confirmada
+    </span>
+</td>
+</tr>
+
+<tr>
+<td>01:00 PM</td>
+<td class="patient">Diego Vargas</td>
+<td>Boyacá</td>
+<td>Duitama</td>
+<td>
+    <span class="badge cancelled">
+        Cancelada
+    </span>
+</td>
+</tr>
+
+<tr>
+<td>03:00 PM</td>
+<td class="patient">Elena Morales</td>
+<td>Antioquia</td>
+<td>Rionegro</td>
+<td>
+    <span class="badge pending">
+        Pendiente
+    </span>
+</td>
+</tr>
+
+<tr>
+<td>04:30 PM</td>
+<td class="patient">Fernando Ruiz</td>
+<td>Amazonas</td>
+<td>Leticia</td>
+<td>
+    <span class="badge confirmed">
+        Confirmada
+    </span>
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+</html>

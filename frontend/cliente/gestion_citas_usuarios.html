@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Citas</title>
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+background:#efefef;
+color:#333;
+}
+
+.header{
+background:#0b7d0b;
+height:70px;
+display:flex;
+align-items:center;
+padding:0 40px;
+justify-content:space-between;
+}
+
+.logo{
+color:#fff;
+font-size:22px;
+font-weight:600;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.nav{
+display:flex;
+gap:25px;
+margin-left:40px;
+}
+
+.nav a{
+color:#c8f5c8;
+text-decoration:none;
+font-size:14px;
+}
+
+.nav a.active{
+color:#fff;
+font-weight:600;
+}
+
+.header-left{
+display:flex;
+align-items:center;
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.bell{
+color:#fff;
+font-size:18px;
+}
+
+.avatar{
+width:38px;
+height:38px;
+border-radius:50%;
+}
+
+.main{
+width:85%;
+margin:40px auto;
+display:flex;
+gap:40px;
+align-items:flex-start;
+}
+
+.left{
+width:35%;
+}
+
+.right{
+width:65%;
+}
+
+.card{
+background:#fff;
+border-radius:12px;
+padding:24px;
+box-shadow:0 3px 8px rgba(0,0,0,0.15);
+margin-bottom:25px;
+}
+
+.card h2{
+font-size:20px;
+margin-bottom:20px;
+}
+
+.form-group{
+margin-bottom:15px;
+}
+
+label{
+font-size:14px;
+display:block;
+margin-bottom:6px;
+}
+
+input,select,textarea{
+width:100%;
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+textarea{
+height:80px;
+resize:none;
+}
+
+.btn{
+width:100%;
+padding:12px;
+background:#0b7d0b;
+color:#fff;
+border:none;
+border-radius:6px;
+font-weight:600;
+cursor:pointer;
+margin-top:10px;
+}
+
+.btn-secondary{
+margin-top:20px;
+width:100%;
+padding:12px;
+background:#0b7d0b;
+color:#fff;
+border:none;
+border-radius:6px;
+font-weight:600;
+cursor:pointer;
+}
+
+.section-title{
+font-size:22px;
+margin-bottom:15px;
+font-weight:600;
+}
+
+.appointment{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:16px;
+border-radius:12px;
+background:#fff;
+box-shadow:0 3px 8px rgba(0,0,0,0.15);
+margin-bottom:20px;
+}
+
+.app-left{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.icon{
+width:50px;
+height:50px;
+border-radius:50%;
+background:#e5e5e5;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.app-info h3{
+font-size:16px;
+margin-bottom:5px;
+}
+
+.app-info span{
+font-size:13px;
+color:#666;
+}
+
+.app-actions{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.badge{
+padding:5px 10px;
+border-radius:20px;
+font-size:12px;
+color:#fff;
+}
+
+.green{background:#0b7d0b;}
+.lightgreen{background:#3aa76d;}
+.gray{background:#444;}
+.red{background:#d32f2f;}
+
+.action-btn{
+padding:7px 12px;
+border-radius:6px;
+border:none;
+cursor:pointer;
+font-size:13px;
+}
+
+.black{
+background:#111;
+color:#fff;
+}
+
+.link{
+color:#7b3fe4;
+font-size:14px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="header-left">
+<div class="logo">✳ Logo</div>
+
+<nav class="nav">
+<a href="../inicio.html">Inicio</a>
+<a href="catalogo_de_productos.html">Productos</a>
+<a href="gestion_citas_usuarios.html" class="active">Citas</a>
+<a href="../carrito.html">Carrito</a>
+</nav>
+</div>
+
+<div class="header-right">
+<div class="bell">🔔</div>
+<img src="https://i.pravatar.cc/40" class="avatar">
+</div>
+
+</header>
+
+<main class="main">
+
+<div class="left">
+
+<div class="card">
+<h2>Agendar Nueva Cita</h2>
+
+<div class="form-group">
+<label>Seleccionar Fecha</label>
+<input type="date" value="2025-08-22">
+</div>
+
+<div class="form-group">
+<label>Seleccionar Hora</label>
+<select>
+<option>09:00 AM</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Seleccionar Servicio</label>
+<select>
+<option>Consulta Nutricional</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Notas Adicionales</label>
+<textarea placeholder="Cualquier información relevante para su cita..."></textarea>
+</div>
+
+<button class="btn">Confirmar Cita</button>
+
+</div>
+<a href="subir_examen.html">
+    <button class="btn-secondary">REGISTRAR EXAMEN</button>
+</a>
+
+
+</div>
+
+<div class="right">
+
+<div class="section-title">Citas Próximas</div>
+
+<div class="appointment">
+
+<div class="app-left">
+<div class="icon">💊</div>
+
+<div class="app-info">
+<h3>Consulta Nutricional</h3>
+<span>📅 2024-08-15 &nbsp; ⏰ 10:00 AM</span>
+</div>
+</div>
+
+<div class="app-actions">
+<span class="badge green">Confirmada</span>
+<button class="action-btn black">Cancelar</button>
+<span class="link">Reprogramar</span>
+</div>
+
+</div>
+
+<div class="appointment">
+
+<div class="app-left">
+<div class="icon">💊</div>
+
+<div class="app-info">
+<h3>Terapia de Desintoxicación</h3>
+<span>📅 2024-08-20 &nbsp; ⏰ 03:00 PM</span>
+</div>
+</div>
+
+<div class="app-actions">
+<span class="badge lightgreen">Pendiente</span>
+<button class="action-btn black">Cancelar</button>
+<span class="link">Reprogramar</span>
+</div>
+
+</div>
+
+<div class="section-title" style="margin-top:30px;">Historial de Citas</div>
+
+<div class="appointment">
+
+<div class="app-left">
+<div class="icon">💊</div>
+
+<div class="app-info">
+<h3>Coaching de Bienestar</h3>
+<span>📅 2024-07-01 &nbsp; ⏰ 09:00 AM</span>
+</div>
+</div>
+
+<div class="app-actions">
+<span class="badge gray">Completada</span>
+<span class="link">Ver Detalles</span>
+</div>
+
+</div>
+
+<div class="appointment">
+
+<div class="app-left">
+<div class="icon">💊</div>
+
+<div class="app-info">
+<h3>Consulta Nutricional</h3>
+<span>📅 2024-06-10 &nbsp; ⏰ 11:00 AM</span>
+</div>
+</div>
+
+<div class="app-actions">
+<span class="badge red">Cancelada</span>
+<span class="link">Ver Detalles</span>
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+</body>
+</html>

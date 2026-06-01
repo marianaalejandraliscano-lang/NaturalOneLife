@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfil Administrador</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f2f2f2;
+}
+
+.navbar{
+height:70px;
+background:#008a00;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 30px;
+color:white;
+}
+
+.logo{
+font-size:30px;
+font-weight:bold;
+}
+
+.menu{ 
+display:flex;
+gap:30px;
+list-style:none;
+}
+
+.avatar{
+width:50px;
+height:50px;
+border-radius:50%;
+}
+
+.container{
+width:1200px;
+margin:70px auto;
+}
+
+.container h1{
+font-size:55px;
+margin-bottom:50px;
+}
+
+.cards{
+display:flex;
+gap:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+flex:1;
+border-radius:8px;
+box-shadow:0 3px 8px rgba(0,0,0,.2);
+}
+
+.profile{
+width:120px;
+height:120px;
+border-radius:50%;
+display:block;
+margin:auto;
+}
+
+.name{
+text-align:center;
+font-size:36px;
+font-weight:bold;
+margin-top:15px;
+}
+
+.email{
+text-align:center;
+color:#666;
+margin:10px 0 25px;
+}
+
+.btn{
+width:100%;
+height:50px;
+border:1px solid #ccc;
+background:#fff;
+border-radius:6px;
+margin-bottom:15px;
+cursor:pointer;
+}
+
+.badge{
+display:inline-block;
+padding:6px 15px;
+background:#008a00;
+color:white;
+border-radius:20px;
+margin:5px;
+}
+
+.badge-outline{
+display:inline-block;
+padding:6px 15px;
+border:1px solid #008a00;
+color:#008a00;
+border-radius:20px;
+margin:5px;
+}
+
+h3{
+font-size:32px;
+margin-bottom:20px;
+}
+
+h4{
+margin:20px 0 10px;
+}
+
+</style>
+
+</head>
+<body>
+
+<nav class="navbar">
+
+<div class="logo">Logo</div>
+
+<ul class="menu">
+
+<li>Inicio</li>
+<a href="gestion-productos.html">
+   <li>Configuración</li> 
+</a>
+
+<a href="panel_de_alertas.html">
+   <li>Soporte</li> 
+</a>
+</ul>
+
+<img src="https://i.pravatar.cc/100" class="avatar">
+
+</nav>
+
+<div class="container">
+
+<h1>Perfil del Administrador</h1>
+
+<div class="cards">
+
+<div class="card">
+
+<img src="https://i.pravatar.cc/150" class="profile">
+
+<div class="name">Alice Johnson</div>
+
+<div class="email">alice.johnson@example.com</div>
+
+<button class="btn">Editar Perfil</button>
+
+<button class="btn">Cerrar Sesión</button>
+
+</div>
+
+<div class="card">
+
+<h3>Roles y Permisos</h3>
+
+<h4>Roles</h4>
+
+<span class="badge">Administrador</span>
+<a href="gestion_citas_admin.html">
+    <span class="badge">Gestor de Contenido</span>
+</a>
+
+
+<h4>Permisos</h4>
+
+<span class="badge-outline">Crear Usuarios</span>
+<span class="badge-outline">Editar Usuarios</span>
+<span class="badge-outline">Eliminar Usuarios</span>
+    <span class="badge-outline">Ver Informes</span>
+    <span class="badge-outline">Publicar Artículos</span>
+
+
+<span class="badge-outline">Gestionar Configuración</span>
+
+</div>
+
+<div class="card">
+
+<h3>Acciones Rápidas</h3>
+<a href="dashboard.html">
+   <button class="btn">Ver Estadísticas de Uso</button> 
+</a>
+
+
+<button class="btn">Gestionar Usuarios</button>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

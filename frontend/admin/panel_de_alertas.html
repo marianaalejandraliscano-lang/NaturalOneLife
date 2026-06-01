@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soporte Global</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#efefef;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar{
+    width:100%;
+    height:64px;
+    background:#008800;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+}
+
+.logo{
+    color:white;
+    font-size:22px;
+    font-weight:700;
+    font-style:italic;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo span{
+    font-size:18px;
+}
+
+.profile{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    overflow:hidden;
+    border:3px solid white;
+}
+
+.profile img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+
+
+.main{
+    width:100%;
+    padding:40px 34px;
+    display:flex;
+    gap:80px;
+    align-items:flex-start;
+}
+
+
+
+.ticket-card{
+    width:760px;
+    background:white;
+    border-radius:14px;
+    box-shadow:
+        0 2px 3px rgba(0,0,0,.20),
+        0 3px 10px rgba(0,0,0,.12);
+    padding:40px 45px;
+}
+
+.ticket-card h2{
+    font-size:26px;
+    color:#222;
+    margin-bottom:28px;
+}
+
+
+.filters{
+    display:flex;
+    gap:14px;
+    margin-bottom:28px;
+}
+
+.filters input,
+.filters select{
+    height:40px;
+    border:1px solid #d9d9d9;
+    border-radius:6px;
+    padding:0 14px;
+    font-size:14px;
+    color:#555;
+    background:white;
+}
+
+.filters input{
+    width:210px;
+}
+
+.filters select{
+    width:180px;
+}
+
+.btn-filter{
+    width:140px;
+    border:none;
+    border-radius:6px;
+    background:#f1f1f1;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:600;
+    color:#333;
+    border:1px solid #dadada;
+}
+
+
+
+.table-wrapper{
+    width:100%;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead th{
+    text-align:left;
+    font-size:14px;
+    color:#666;
+    font-weight:700;
+    padding:16px;
+    border-bottom:2px solid #ececec;
+}
+
+tbody td{
+    padding:18px 16px;
+    border-bottom:1px solid #ececec;
+    color:#333;
+    font-size:14px;
+    line-height:1.5;
+}
+
+tbody tr{
+    height:82px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:60px;
+    height:24px;
+    padding:0 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.estado-abierto{
+    background:#f3f4f8;
+    color:#333;
+}
+
+.estado-proceso{
+    background:#f4f2fb;
+    color:#333;
+}
+
+.estado-cerrado{
+    background:#f1f2f5;
+    color:#555;
+}
+
+.prioridad-alta{
+    background:#d50000;
+    color:white;
+}
+
+.prioridad-media{
+    background:#9ca3b7;
+    color:white;
+}
+
+.prioridad-baja{
+    background:#3d73c9;
+    color:white;
+}
+
+
+
+.actions{
+    display:flex;
+    gap:18px;
+    align-items:center;
+}
+
+.action-btn{
+    font-size:20px;
+    color:#222;
+    cursor:pointer;
+    text-decoration:none;
+}
+detail-card{
+    width:370px;
+    background:#ffffff;
+    border-radius:14px;
+    padding:28px 22px;
+    box-shadow:
+        0 2px 3px rgba(0,0,0,.20),
+        0 3px 10px rgba(0,0,0,.12);
+}
+
+.detail-card h2{
+    font-size:22px;
+    color:#222;
+    margin-bottom:28px;
+}
+
+.ticket-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:18px;
+}
+
+.title-ticket{
+    font-size:20px;
+    font-weight:700;
+    color:#222;
+    line-height:1.35;
+}
+
+.status-group{
+    display:flex;
+    gap:8px;
+    margin-top:4px;
+}
+
+.info-ticket{
+    color:#666;
+    font-size:15px;
+    margin-bottom:10px;
+}
+
+.divider{
+    width:100%;
+    height:1px;
+    background:#e5e5e5;
+    margin:24px 0;
+}
+
+.section-title{
+    font-size:17px;
+    font-weight:700;
+    color:#222;
+    margin-bottom:18px;
+}
+
+.history-box{
+    background:#f7f7f7;
+    border-radius:8px;
+    padding:14px 12px;
+    margin-bottom:14px;
+}
+
+.history-date{
+    font-size:13px;
+    font-weight:700;
+    color:#222;
+    margin-bottom:10px;
+}
+
+.history-text{
+    font-size:14px;
+    color:#444;
+    line-height:1.55;
+}
+
+.reply-title{
+    font-size:17px;
+    font-weight:700;
+    color:#222;
+    margin-bottom:18px;
+}
+
+.reply-area{
+    width:100%;
+    height:140px;
+    resize:none;
+    border:1px solid #d8d8d8;
+    border-radius:8px;
+    padding:14px;
+    font-size:14px;
+    outline:none;
+}
+
+.reply-area::placeholder{
+    color:#888;
+}
+
+.send-btn{
+    width:100%;
+    height:40px;
+    margin-top:14px;
+    border:none;
+    border-radius:6px;
+    background:#3f73c9;
+    color:white;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.send-btn:hover{
+    opacity:.95;
+}
+
+@media(max-width:1200px){
+
+    .main{
+        flex-direction:column;
+    }
+
+    .ticket-card{
+        width:100%;
+    }
+
+    .detail-card{
+        width:100%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="logo">
+        ✳ logo
+    </div>
+
+    <div class="profile">
+      <a href="perfil-admin.html">
+        <img src="https://i.pravatar.cc/150?img=32">
+      </a>
+        
+    </div>
+
+</header>
+
+<div class="main">
+
+    <section class="ticket-card">
+
+        <h2>Listado de Soporte</h2>
+
+        <div class="filters">
+
+            <input
+            type="text"
+            placeholder="Buscar por ID, cliente,">
+
+            <select>
+                <option>Estado</option>
+            </select>
+
+            <select>
+                <option>Prioridad</option>
+            </select>
+
+            <button class="btn-filter">
+                Aplicar Filtros
+            </button>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Asunto</th>
+                        <th>Estado</th>
+                        <th>Prioridad</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td><strong>#001</strong></td>
+
+                        <td>
+                            Software<br>
+                            Solutions
+                        </td>
+
+                        <td>
+                            Error de inicio<br>
+                            de sesión
+                        </td>
+
+                        <td>
+                            <span class="badge estado-abierto">
+                                Abierto
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="badge prioridad-alta">
+                                Alta
+                            </span>
+                        </td>
+
+                        <td>
+                            2023-<br>
+                            10-26
+                        </td>
+
+                        <td>
+                            <div class="actions">
+                                <span class="action-btn">✎</span>
+                                <span class="action-btn">×</span>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><strong>#002</strong></td>
+
+                        <td>
+                            Creative<br>
+                            Designs Inc.
+                        </td>
+
+                        <td>
+                            Solicitud de<br>
+                            nueva función
+                        </td>
+
+                        <td>
+                            <span class="badge estado-proceso">
+                                En Progreso
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="badge prioridad-media">
+                                Media
+                            </span>
+                        </td>
+
+                        <td>
+                            2023-<br>
+                            10-25
+                        </td>
+
+                        <td>
+                            <div class="actions">
+                                <span class="action-btn">✎</span>
+                                <span class="action-btn">×</span>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><strong>#003</strong></td>
+
+                        <td>
+                            Global<br>
+                            Logistics
+                        </td>
+
+                        <td>
+                            Facturación<br>
+                            incorrecta
+                        </td>
+
+                        <td>
+                            <span class="badge estado-abierto">
+                                Abierto
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="badge prioridad-alta">
+                                Alta
+                            </span>
+                        </td>
+
+                        <td>
+                            2023-<br>
+                            10-24
+                        </td>
+
+                        <td>
+                            <div class="actions">
+                                <span class="action-btn">✎</span>
+                                <span class="action-btn">×</span>
+                            </div>
+                        </td>
+
+                    </tr>
+                    
+                    <tr>
+
+                        <td><strong>#004</strong></td>
+
+                        <td>
+                            Eco<br>
+                            Friendly Co.
+                        </td>
+
+                        <td>
+                            Soporte<br>
+                            técnico para<br>
+                            API
+                        </td>
+
+                        <td>
+                            <span class="badge estado-cerrado">
+                                Cerrado
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="badge prioridad-baja">
+                                Baja
+                            </span>
+                        </td>
+
+                        <td>
+                            2023-<br>
+                            10-23
+                        </td>
+
+                        <td>
+                            <div class="actions">
+                                <span class="action-btn">✎</span>
+                                <span class="action-btn">×</span>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><strong>#005</strong></td>
+
+                        <td>
+                            Future Tech<br>
+                            Innovations
+                        </td>
+
+                        <td>
+                            Consulta<br>
+                            sobre<br>
+                            integración
+                        </td>
+
+                        <td>
+                            <span class="badge estado-abierto">
+                                Abierto
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="badge prioridad-media">
+                                Media
+                            </span>
+                        </td>
+
+                        <td>
+                            2023-<br>
+                            10-22
+                        </td>
+
+                        <td>
+                            <div class="actions">
+                                <span class="action-btn">✎</span>
+                                <span class="action-btn">×</span>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><strong>#006</strong></td>
+
+                        <td>
+                            HealthCare<br>
+                            Providers
+                        </td>
+
+                        <td>
+                            Problema de<br>
+                            acceso a<br>
+                            registros
+                        </td>
+
+                        <td>
+                            <span class="badge estado-proceso">
+                                En Progreso
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="badge prioridad-alta">
+                                Alta
+                            </span>
+                        </td>
+
+                        <td>
+                            2023-<br>
+                            10-21
+                        </td>
+
+                        <td>
+                            <div class="actions">
+                                <span class="action-btn">✎</span>
+                                <span class="action-btn">×</span>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><strong>#007</strong></td>
+
+                        <td>
+                            Retail<br>
+                            Giants
+                        </td>
+
+                        <td>
+                            Fallo en la<br>
+                            sincronización<br>
+                            de inventario
+                        </td>
+
+                        <td>
+                            <span class="badge estado-abierto">
+                                Abierto
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="badge prioridad-media">
+                                Media
+                            </span>
+                        </td>
+
+                        <td>
+                            2023-<br>
+                            10-20
+                        </td>
+
+                        <td>
+                            <div class="actions">
+                                <span class="action-btn">✎</span>
+                                <span class="action-btn">×</span>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td><strong>#008</strong></td>
+
+                        <td>
+                            EduTech<br>
+                            Systems
+                        </td>
+
+                        <td>
+                            Actualización<br>
+                            de contenido<br>
+                            fallida
+                        </td>
+
+                        <td>
+                            <span class="badge estado-cerrado">
+                                Cerrado
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="badge prioridad-baja">
+                                Baja
+                            </span>
+                        </td>
+
+                        <td>
+                            2023-<br>
+                            10-19
+                        </td>
+
+                        <td>
+                            <div class="actions">
+                                <span class="action-btn">✎</span>
+                                <span class="action-btn">×</span>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+    <aside class="detail-card">
+
+        <div class="detail-header">
+
+            <h2>Detalles de Soporte</h2>
+
+            <div class="ticket-top">
+
+                <div class="title-ticket">
+                    Error de inicio de<br>
+                    sesión
+                </div>
+
+                <div class="status-group">
+
+                    <span class="badge estado-abierto">
+                        Abierto
+                    </span>
+
+                    <span class="badge prioridad-alta">
+                        Alta
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="info-ticket">
+                Cliente: Software Solutions
+            </div>
+
+            <div class="info-ticket">
+                Fecha: 2023-10-26
+            </div>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section-title">
+            Historial
+        </div>
+
+        <div class="history-box">
+
+            <div class="history-date">
+                2023-10-26 09:30 AM
+            </div>
+
+            <div class="history-text">
+                Cliente: No puedo iniciar
+                sesión en mi cuenta,
+                la contraseña no funciona.
+            </div>
+
+        </div>
+
+        <div class="history-box">
+
+            <div class="history-date">
+                2023-10-26 09:45 AM
+            </div>
+
+            <div class="history-text">
+                Agente: Hemos restablecido
+                su contraseña. Intente de
+                nuevo con la nueva contraseña
+                temporal enviada a su correo.
+            </div>
+
+        </div>
+
+        <div class="history-box">
+
+            <div class="history-date">
+                2023-10-26 10:15 AM
+            </div>
+
+            <div class="history-text">
+                Cliente: Gracias, ya puedo
+                acceder. Parece que funcionó.
+            </div>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="reply-title">
+            Responder
+        </div>
+
+        <textarea
+            class="reply-area"
+            placeholder="Escribe tu respuesta aquí..."
+        ></textarea>
+
+        <button class="send-btn">
+            Enviar Respuesta
+        </button>
+
+    </aside>
+
+</div>
+
+</body>
+</html>
