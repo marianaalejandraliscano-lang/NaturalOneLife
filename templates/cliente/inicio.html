@@ -1,1220 +1,400 @@
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Natural One Life</title>
-
-<link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/estilos.css') }}"
->
-
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
->
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
-
 <body>
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header>
-
     <div class="nav-links">
-
-        <a
-            href="{{ url_for('inicio') }}"
-            class="active"
-        >
-        <i class="fa-solid fa-house"></i>
-            Inicio
-        </a>
-
-
+        <a href="{{ url_for('inicio') }}" class="active">
+        <i class="fa-solid fa-house"></i>Inicio</a>
         <a href="{{ url_for('catalogo') }}">
-            <i class="fa-solid fa-box-open"></i>
-            Catálogo
-        </a>
-
-
+        <i class="fa-solid fa-box-open"></i>Catálogo</a>
         <a href="{{ url_for('gestion_citas') }}">
-            <i class="fa-solid fa-calendar-check"></i>
-            Citas
-        </a>
-
-
+        <i class="fa-solid fa-calendar-check"></i>Citas</a>
         <a href="{{ url_for('carrito') }}">
-            <i class="fa-solid fa-cart-shopping"></i>
-            Carrito
-        </a>
-
+        <i class="fa-solid fa-cart-shopping"></i>Carrito</a>
     </div>
-
-
     <div class="nav-right">
         <div class="search">
-
-    <input
-        type="text"
-        id="buscador"
-        placeholder="Buscar productos..."
-        autocomplete="off"
-    >
-
-    <button
-        type="button"
-        id="btnBuscar"
-        title="Buscar"
-    >
+    <input type="text" id="buscador" placeholder="Buscar productos..." autocomplete="off">
+    <button type="button" id="btnBuscar" title="Buscar">
         🔍
     </button>
-
 </div>
-<!-- =====================================================
-     NOTIFICACIONES
-===================================================== -->
-
+<!--NOTIFICACIONES-->
 <div class="notification-wrapper">
-
-    <button
-        type="button"
-        class="bell"
-        id="btnNotificaciones"
-        title="Notificaciones"
-    >
-
+    <button type="button" class="bell" id="btnNotificaciones" title="Notificaciones">
         <i class="fa-solid fa-bell"></i>
-
         {% if notificaciones_no_leidas > 0 %}
-
-            <span
-                class="notification-count"
-                id="notificationCount"
-            >
+            <span class="notification-count" id="notificationCount">
                 {{ notificaciones_no_leidas }}
             </span>
-
         {% endif %}
-
     </button>
-
-
-    <!-- =================================================
-         PANEL
-    ================================================== -->
-
-    <div
-        class="notification-panel"
-        id="notificationPanel"
-    >
-
+    <!--PANEL-->
+    <div class="notification-panel" id="notificationPanel">
         <div class="notification-header">
-
-            <strong>
-                Notificaciones
-            </strong>
-
-            <button
-                type="button"
-                id="cerrarNotificaciones"
-                title="Cerrar"
-            >
-                ×
-            </button>
-
+            <strong>Notificaciones</strong>
+            <button type="button" id="cerrarNotificaciones" title="Cerrar">×</button>
         </div>
-
-
         <div class="notification-list">
-
             {% if notificaciones %}
-
                 {% for notificacion in notificaciones %}
-
-                    <div
-                        class="notification-item {% if notificacion.leidaNot == 0 %}notification-unread{% endif %}"
-                        data-id="{{ notificacion.idNot }}"
-                    >
-
+                    <div class="notification-item {% if notificacion.leidaNot == 0 %}notification-unread{% endif %}" data-id="{{ notificacion.idNot }}">
                         <!-- ICONO -->
-
                         <div class="notification-icon">
-
                             {% if notificacion.tipoNot == "pedido" %}
-
                                 <i class="fa-solid fa-box"></i>
-
                             {% elif notificacion.tipoNot == "cita" %}
-
                                 <i class="fa-solid fa-calendar-check"></i>
-
                             {% else %}
-
                                 <i class="fa-solid fa-bell"></i>
-
                             {% endif %}
-
                         </div>
-
-
                         <!-- INFORMACIÓN -->
-
                         <div class="notification-content">
-
                             <strong>
-
                                 {% if notificacion.tipoNot == "pedido" %}
-
                                     Actualización de pedido
-
                                 {% elif notificacion.tipoNot == "cita" %}
-
                                     Actualización de cita
-
                                 {% else %}
-
                                     Notificación
-
                                 {% endif %}
-
                             </strong>
-
-
-                            <p>
-                                {{ notificacion.mensajeNot }}
-                            </p>
-
-
+                            <p>{{ notificacion.mensajeNot }}</p>
                             {% if notificacion.fechaEnvioNot %}
-
-                                <small>
-                                    {{ notificacion.fechaEnvioNot }}
-                                </small>
-
+                                <small>{{ notificacion.fechaEnvioNot }}</small>
                             {% endif %}
-
                         </div>
-
                     </div>
-
                 {% endfor %}
-
             {% else %}
-
                 <div class="notification-empty">
-
-                    <span>
-                        <i class="fa-regular fa-bell-slash"></i>
-                    </span>
-
-                    <p>
-                        No tienes notificaciones.
-                    </p>
-
+                    <span><i class="fa-regular fa-bell-slash"></i></span>
+                    <p>No tienes notificaciones</p>
                 </div>
-
             {% endif %}
-
         </div>
-
     </div>
-
 </div>
-
-        <a
-                href="{{ url_for('perfil') }}"
-                class="profile-link"
-            >
-
+        <a href="{{ url_for('perfil') }}" class="profile-link">
                 {% if usuario and usuario.fotoUsu %}
-
-                    <img
-                        src="{{ url_for(
-                            'static',
-                            filename='img/perfiles/' + usuario.fotoUsu
-                        ) }}"
-                        alt="Foto de perfil"
-                        class="profile"
-                    >
-
+                    <img src="{{ url_for('static',filename='img/perfiles/' + usuario.fotoUsu) }}" alt="Foto de perfil" class="profile">
                 {% else %}
-
                     <div class="foto-default">
-
                         <i class="fa-solid fa-user"></i>
-
                     </div>
-
                 {% endif %}
-
             </a>
-
-
     </div>
-
 </header>
-
-
 <main class="container">
-
-
-<!-- =====================================================
-     HERO
-===================================================== -->
-
 <section class="hero">
-
-    <img
-        src="{{ url_for(
-            'static',
-            filename='img/productos/banner.png'
-        ) }}"
-        alt="Natural One Life"
-    >
-
-
+    <img src="{{ url_for('static',filename='img/productos/banner.png') }}" alt="Natural One Life">
     <div class="hero-content">
-
         <span class="hero-tag">
             BIENESTAR NATURAL
         </span>
 
-
         <h1>
-            Descubre el bienestar natural
-            con Natural One Life
+            Descubre el bienestar natural con Natural One Life
         </h1>
-
-
         <p>
             Encuentra productos naturales seleccionados
             para acompañar tu bienestar y agenda consultas
             personalizadas con nuestros especialistas.
         </p>
-
-
         <div class="hero-buttons">
-
-            <a
-                href="{{ url_for('catalogo') }}"
-                class="hero-btn"
-            >
-                Explorar productos
-            </a>
-
-
-            <a
-                href="{{ url_for('gestion_citas') }}"
-                class="hero-btn secondary"
-            >
-                Agendar una cita
-            </a>
-
+            <a href="{{ url_for('catalogo') }}" class="hero-btn">Explorar productos</a>
+            <a href="{{ url_for('gestion_citas') }}" class="hero-btn secondary">Agendar una cita</a>
         </div>
-
     </div>
-
 </section>
-
-
-<!-- =====================================================
-     CATEGORÍAS
-===================================================== -->
-
+<!--CATEGORÍAS-->
 <section class="categories-section">
-
     <h2 class="section-title">
         Explora nuestras categorías
     </h2>
-
-
     <p class="section-description">
         Encuentra productos naturales pensados para
         diferentes necesidades de bienestar.
     </p>
-
-
     <div class="categories">
-
         {% for categoria in categorias %}
-
         <a
-            href="{{ url_for(
-                'catalogo',
-                categoria=categoria.idCat
-            ) }}"
-            class="category-card"
-        >
-
+            href="{{ url_for('catalogo',categoria=categoria.idCat) }}"class="category-card">
             <div class="category-icon">
-
                 {% if 'aceite' in categoria.nombreCat|lower %}
-
                     <i class="fa-solid fa-droplet"></i>
-
                 {% elif 'vitamina' in categoria.nombreCat|lower %}
-
                     <i class="fa-solid fa-capsules"></i>
-
                 {% elif 'suplement' in categoria.nombreCat|lower %}
-
                     <i class="fa-solid fa-leaf"></i>
-
                 {% elif 'belleza' in categoria.nombreCat|lower %}
-
                     <i class="fa-solid fa-spa"></i>
-
                 {% elif 'jabón' in categoria.nombreCat|lower
                    or 'jabon' in categoria.nombreCat|lower %}
-
                     <i class="fa-solid fa-soap"></i>
-
                 {% elif 'té' in categoria.nombreCat|lower
                    or 'te' in categoria.nombreCat|lower %}
-
                     <i class="fa-solid fa-mug-hot"></i>
-
                 {% else %}
-
                     <i class="fa-solid fa-seedling"></i>
-
                 {% endif %}
-
             </div>
-
-
             <h3>
                 {{ categoria.nombreCat }}
             </h3>
-
-
             {% if categoria.descripcionCat %}
-
             <p>
                 {{ categoria.descripcionCat }}
             </p>
-
             {% endif %}
-
         </a>
-
-
         {% else %}
-
         <div class="empty-message">
-
             <i class="fa-solid fa-leaf"></i>
-
-            <p>
-                No hay categorías disponibles actualmente.
-            </p>
-
+            <p>No hay categorías disponibles actualmente.</p>
         </div>
-
         {% endfor %}
-
     </div>
-
 </section>
-
-
-<!-- =====================================================
-     PRODUCTOS DESTACADOS
-===================================================== -->
-
+<!-- PRODUCTOS DESTACADOS-->
 <section class="featured-section">
-
-
     <div class="section-heading">
-
         <div>
-
-            <h2 class="section-title">
-                Productos destacados
-            </h2>
-
-
-            <p class="section-description">
-                Descubre algunos de nuestros productos naturales.
-            </p>
-
+            <h2 class="section-title">Productos destacados</h2>
+            <p class="section-description">Descubre algunos de nuestros productos naturales.</p>
         </div>
-
-
-        <a
-            href="{{ url_for('catalogo') }}"
-            class="view-all"
-        >
-            Ver todos
-
-            <i class="fa-solid fa-arrow-right"></i>
-
-        </a>
-
+        <a href="{{ url_for('catalogo') }}" class="view-all">Ver todos<i class="fa-solid fa-arrow-right"></i></a>
     </div>
-
-
     <div class="products">
-
         {% for producto in productos %}
-
         <article class="product-card">
-
-
             <!-- IMAGEN -->
-
             <div class="product-image-container">
-
                 {% if producto.imagenesPro %}
-
-                    <img
-                        src="{{ url_for(
-                            'static',
-                            filename='img/productos/' ~ producto.imagenesPro
-                        ) }}"
-                        alt="{{ producto.nombrePro }}"
-                        class="product-image"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                    >
-
-                    <div
-                        class="no-image"
-                        style="display:none;"
-                    >
+                    <img src="{{ url_for('static',filename='img/productos/' ~ producto.imagenesPro) }}" alt="{{ producto.nombrePro }}" class="product-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="no-image" style="display:none;">
                         <i class="fa-solid fa-leaf"></i>
                     </div>
-
                 {% else %}
-
                     <div class="no-image">
-
                         <i class="fa-solid fa-leaf"></i>
-
                     </div>
-
                 {% endif %}
-
-
                 <!-- ESTADO -->
-
                 {% if producto.stockPro <= 0 %}
-
-                    <span class="product-status out">
-                        Agotado
-                    </span>
-
+                    <span class="product-status out">Agotado</span>
                 {% elif producto.stockPro <= 10 %}
-
-                    <span class="product-status low">
-                        Pocas unidades
-                    </span>
-
+                    <span class="product-status low">Pocas unidades</span>
                 {% else %}
-
-                    <span class="product-status available">
-                        Disponible
-                    </span>
-
+                    <span class="product-status available">Disponible</span>
                 {% endif %}
-
             </div>
-
-
             <!-- INFORMACIÓN -->
-
             <div class="product-info">
-
-
                 {% if producto.nombreCat %}
-
                 <span class="product-category">
-
                     {{ producto.nombreCat }}
-
                 </span>
-
                 {% endif %}
-
-
-                <h3>
-                    {{ producto.nombrePro }}
-                </h3>
-
-
+                <h3>{{ producto.nombrePro }}</h3>
                 {% if producto.descripcionPro %}
-
-                <p>
-                    {{ producto.descripcionPro|truncate(90) }}
-                </p>
-
+                <p>{{ producto.descripcionPro|truncate(90) }}</p>
                 {% endif %}
-
-
                 <div class="product-bottom">
-
-                    <strong class="price">
-
-                        ${{ "{:,.0f}".format(
-                            producto.precioPro|float
-                        ) }}
-
-                    </strong>
-
+                    <strong class="price"> ${{ "{:,.0f}".format(producto.precioPro|float) }} </strong>
                 </div>
-
-
                 <!-- BOTONES -->
-
                 <div class="product-actions">
-
-
-                    <a
-                        href="{{ url_for(
-                            'producto',
-                            id=producto.idPro
-                        ) }}"
-                        class="btn-white"
-                    >
-                        Ver detalles
-                    </a>
-
-
+                    <a href="{{ url_for('producto',id=producto.idPro) }}" class="btn-white">Ver detalles</a>
                     {% if producto.stockPro > 0 %}
-
-                    <form
-                        method="POST"
-                        action="{{ url_for(
-                            'agregar_carrito',
-                            id=producto.idPro
-                        ) }}"
-                        class="add-cart-form"
-                    >
-
-                        <button
-                            type="submit"
-                            class="btn-green"
-                        >
-
+                    <form method="POST" action="{{ url_for('agregar_carrito',id=producto.idPro) }}" class="add-cart-form">
+                        <button type="submit" class="btn-green">
                             <i class="fa-solid fa-cart-plus"></i>
-
                             Añadir
-
                         </button>
-
                     </form>
-
-
                     {% else %}
-
-                    <button
-                        class="btn-disabled"
-                        disabled
-                    >
-                        Agotado
-                    </button>
-
+                    <button class="btn-disabled" disabled>Agotado</button>
                     {% endif %}
-
                 </div>
-
             </div>
-
         </article>
-
-
         {% else %}
-
         <div class="empty-products">
-
             <i class="fa-solid fa-box-open"></i>
-
-            <h3>
-                No hay productos disponibles
-            </h3>
-
-            <p>
-                Actualmente no tenemos productos destacados.
-            </p>
-
-            <a
-                href="{{ url_for('catalogo') }}"
-                class="hero-btn"
-            >
-                Ver catálogo
-            </a>
-
+            <h3>No hay productos disponibles</h3>
+            <p>Actualmente no tenemos productos destacados.</p>
+            <a href="{{ url_for('catalogo') }}" class="hero-btn">Ver catálogo</a>
         </div>
-
         {% endfor %}
-
     </div>
-
 </section>
-
-
-<!-- =====================================================
-     BIENESTAR
-===================================================== -->
-
+<!--BIENESTAR -->
 <section class="wellness-section">
-
     <div class="wellness-card">
-
         <div class="wellness-icon">
-
             <i class="fa-solid fa-leaf"></i>
-
         </div>
-
-
         <div>
-
-            <span>
-                NATURAL ONE LIFE
-            </span>
-
-
-            <h2>
-                Tu bienestar empieza con buenas decisiones
-            </h2>
-
-
+            <span>NATURAL ONE LIFE</span>
+            <h2>Tu bienestar empieza con buenas decisiones</h2>
             <p>
                 Conoce nuestra selección de productos naturales
                 y recibe orientación personalizada para cuidar
                 tu bienestar de manera integral.
             </p>
-
         </div>
-
-
-        <a
-            href="{{ url_for('catalogo') }}"
-            class="wellness-btn"
-        >
-            Ver productos
-        </a>
-
+        <a href="{{ url_for('catalogo') }}" class="wellness-btn">Ver productos</a>
     </div>
-
 </section>
-
-
-<!-- =====================================================
-     CITAS
-===================================================== -->
-
+<!--CITAS-->
 <section class="cta">
-
     <div class="cta-content">
-
-        <div class="cta-icon">
-
-            <i class="fa-solid fa-heart-pulse"></i>
-
-        </div>
-
-
+        <div class="cta-icon"><i class="fa-solid fa-heart-pulse"></i></div>
         <div class="cta-text">
-
-            <h2>
-                Expertos en bienestar a tu alcance
-            </h2>
-
-
+            <h2>Expertos en bienestar a tu alcance</h2>
             <p>
                 Agenda una consulta personalizada con nuestros
                 especialistas y recibe orientación para tu camino
                 hacia una vida más saludable.
             </p>
-
         </div>
-
     </div>
-
-
     <a href="{{ url_for('gestion_citas') }}">
-
-        <button
-            type="button"
-            class="cta-btn"
-        >
-            Agendar cita ahora
-        </button>
-
+        <button type="button" class="cta-btn">Agendar cita ahora</button>
     </a>
-
 </section>
-
 </main>
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
 <footer>
-
     <div class="footer-grid">
-
-
         <div>
-
-            <h3 class="footer-logo">
-                Natural One Life
-            </h3>
-
-
+            <h3 class="footer-logo">Natural One Life</h3>
             <p class="footer-description">
                 Transformando vidas a través de productos naturales,
                 bienestar integral y asesoría especializada.
             </p>
-
-
             <div class="social-icons">
-
-                <a
-                    href="#"
-                    aria-label="Facebook"
-                >
-                    <i class="fa-brands fa-facebook-f"></i>
-                </a>
-
-
-                <a
-                    href="#"
-                    aria-label="Instagram"
-                >
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-
-
-                <a
-                    href="#"
-                    aria-label="X"
-                >
-                    <i class="fa-brands fa-x-twitter"></i>
-                </a>
-
-
-                <a
-                    href="#"
-                    aria-label="YouTube"
-                >
-                    <i class="fa-brands fa-youtube"></i>
-                </a>
-
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
             </div>
-
         </div>
-
-
-        <!-- RECURSOS -->
-
         <div>
-
-            <h4>
-                Recursos
-            </h4>
-
-
+            <h4>Recursos</h4>
             <ul>
-
-                <li>
-                    <a href="{{ url_for('catalogo') }}">
-                        Productos
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="{{ url_for('gestion_citas') }}">
-                        Citas
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="{{ url_for('perfil') }}">
-                        Mi perfil
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="{{ url_for('carrito') }}">
-                        Carrito
-                    </a>
-                </li>
-
+                <li><a href="{{ url_for('catalogo') }}">Productos</a></li>
+                <li><a href="{{ url_for('gestion_citas') }}">Citas</a></li>
+                <li><a href="{{ url_for('perfil') }}">Mi perfil</a></li>
+                <li><a href="{{ url_for('carrito') }}">Carrito</a></li>
             </ul>
-
         </div>
-
-
-        <!-- NATURAL ONE LIFE -->
-
         <div>
-
-            <h4>
-                Natural One Life
-            </h4>
-
-
+            <h4>Natural One Life</h4>
             <ul>
-
-                <li>
-                    <a href="#">
-                        Nosotros
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="#">
-                        Misión
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="#">
-                        Visión
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="#">
-                        Contacto
-                    </a>
-                </li>
-
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Misión</a></li>
+                <li><a href="#">Visión</a></li>
+                <li><a href="#">Contacto</a></li>
             </ul>
-
         </div>
-
-
         <!-- LEGAL -->
-
         <div>
-
-            <h4>
-                Legal
-            </h4>
-
-
+            <h4>Legal</h4>
             <ul>
-
-                <li>
-                    <a href="#">
-                        Privacidad
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="#">
-                        Términos
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="#">
-                        Cookies
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="#">
-                        Políticas
-                    </a>
-                </li>
-
+                <li><a href="#">Privacidad</a></li>
+                <li><a href="#">Términos</a></li>
+                <li><a href="#">Cookies</a></li>
+                <li><a href="#">Políticas</a></li>
             </ul>
-
         </div>
-
-
         <!-- CONTACTO -->
-
         <div>
-
-            <h4>
-                Contacto
-            </h4>
-
-
+            <h4>Contacto</h4>
             <ul>
-
-                <li>
-                    <a href="#">
-                        WhatsApp
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="#">
-                        Correo
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="#">
-                        Teléfono
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="#">
-                        Ubicación
-                    </a>
-                </li>
-
+                <li><a href="#">WhatsApp</a></li>
+                <li><a href="#">Correo</a></li>
+                <li><a href="#">Teléfono</a></li>
+                <li><a href="#">Ubicación</a></li>
             </ul>
-
         </div>
-
     </div>
-
-
     <div class="copyright">
-
         © 2026 Natural One Life.
         Todos los derechos reservados.
-
     </div>
-
 </footer>
 <script>
-    
-const buscador =
-    document.getElementById("buscador");
-
-const btnBuscar =
-    document.getElementById("btnBuscar");
-
-
-// ------------------------------------------------------------
-// EJECUTAR BÚSQUEDA
-// ------------------------------------------------------------
-
+const buscador = document.getElementById("buscador");
+const btnBuscar = document.getElementById("btnBuscar");
+//EJECUTAR BÚSQUEDA
 function ejecutarBusqueda() {
-
-    const texto =
-        buscador.value.trim();
-
-
+    const texto = buscador.value.trim();
     if (!texto) {
-
         alert("Escriba un producto para buscar.");
-
         buscador.focus();
-
         return;
-
     }
-
-
-    /*
-     * Envía la búsqueda a la página
-     * del catálogo.
-     */
-
-    window.location.href =
-        "{{ url_for('catalogo') }}" +
-        "?buscar=" +
-        encodeURIComponent(texto);
-
+    /* Envía la búsqueda a la página del catálogo.*/
+    window.location.href = "{{ url_for('catalogo') }}" + "?buscar=" + encodeURIComponent(texto);
 }
-
-
-// ------------------------------------------------------------
-// BOTÓN BUSCAR
-// ------------------------------------------------------------
-
-btnBuscar.addEventListener(
-    "click",
-    ejecutarBusqueda
-);
-
-
-// ------------------------------------------------------------
+//BOTÓN BUSCAR
+btnBuscar.addEventListener("click", ejecutarBusqueda);
 // ENTER EN EL BUSCADOR
-// ------------------------------------------------------------
-
-buscador.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (event.key === "Enter") {
-
-            event.preventDefault();
-
-            ejecutarBusqueda();
-
-        }
-
-    }
+buscador.addEventListener("keydown",
+    function(event) {if (event.key === "Enter") {event.preventDefault(); ejecutarBusqueda();}}
 );
-
-const btnNotificaciones =
-    document.getElementById("btnNotificaciones");
-
-const notificationPanel =
-    document.getElementById("notificationPanel");
-
-const cerrarNotificaciones =
-    document.getElementById("cerrarNotificaciones");
-
-const notificationCount =
-    document.getElementById("notificationCount");
-
-
-/* =====================================================
-   ABRIR NOTIFICACIONES
-===================================================== */
-
+const btnNotificaciones = document.getElementById("btnNotificaciones");
+const notificationPanel = document.getElementById("notificationPanel");
+const cerrarNotificaciones = document.getElementById("cerrarNotificaciones");
+const notificationCount = document.getElementById("notificationCount");
+/*ABRIR NOTIFICACIONES */
 btnNotificaciones.addEventListener(
     "click",
     function(event){
-
         event.stopPropagation();
-
         notificationPanel.classList.toggle("show");
-
-        /*
-         * Si se abre el panel,
-         * marcamos todas como leídas.
-         */
-
-        if(
-            notificationPanel.classList.contains("show")
-        ){
-
-            fetch(
-                "{{ url_for('marcar_notificaciones_leidas') }}",
-                {
-                    method:"POST",
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    }
-                }
-            )
+        /*Si se abre el panel,marcamos todas como leídas.*/
+        if(notificationPanel.classList.contains("show")){
+            fetch("{{ url_for('marcar_notificaciones_leidas') }}", {method:"POST", headers:{"Content-Type":"application/json"}})
             .then(response => response.json())
             .then(data => {
-
                 if(data.success){
-
-                    /*
-                     * Eliminar el numerito
-                     */
-
-                    if(notificationCount){
-
-                        notificationCount.remove();
-
-                    }
-
-                    /*
-                     * Quitar el estilo
-                     * de no leída
-                     */
-
+                    /*Eliminar el numerito*/
+                    if(notificationCount){notificationCount.remove();}
+                    /*Quitar el estil de no leída*/
                     document
-                        .querySelectorAll(
-                            ".notification-unread"
-                        )
-                        .forEach(function(item){
-
-                            item.classList.remove(
-                                "notification-unread"
-                            );
-
-                        });
-
+                        .querySelectorAll(".notification-unread")
+                        .forEach(function(item){item.classList.remove("notification-unread");});
                 }
-
             })
-            .catch(error => {
-
-                console.error(
-                    "Error marcando notificaciones:",
-                    error
-                );
-
-            });
-
+            .catch(error => {console.error("Error marcando notificaciones:", error);});
         }
-
     }
 );
-
-
-/* =====================================================
-   CERRAR CON X
-===================================================== */
-
-cerrarNotificaciones.addEventListener(
-    "click",
+/*CERRAR CON X */
+cerrarNotificaciones.addEventListener( "click",
     function(event){
-
         event.stopPropagation();
-
-        notificationPanel.classList.remove(
-            "show"
-        );
-
+        notificationPanel.classList.remove("show");
     }
 );
-
-
-/* =====================================================
-   CERRAR AL HACER CLICK AFUERA
-===================================================== */
-
-document.addEventListener(
-    "click",
+/*CERRAR AL HACER CLICK AFUERA*/
+document.addEventListener("click",
     function(event){
-
-        if(
-            !notificationPanel.contains(
-                event.target
-            )
-            &&
-            !btnNotificaciones.contains(
-                event.target
-            )
-        ){
-
-            notificationPanel.classList.remove(
-                "show"
-            );
-
-        }
-
+        if(!notificationPanel.contains(event.target) && !btnNotificaciones.contains(event.target)){notificationPanel.classList.remove("show");}
     }
 );
-
-
 </script>
-
 </body>
 </html>

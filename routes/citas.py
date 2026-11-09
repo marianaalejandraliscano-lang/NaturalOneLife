@@ -6,7 +6,7 @@ from datetime import datetime
 from routes.permiso import login_requerido
 
 def actualizar_citas_vencidas():
-
+    
     cursor = None
 
     try:

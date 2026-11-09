@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!usuarioValor) {
 
                 mostrarMensaje(
-                    "Ingresa tu correo o nombre de usuario."
+                    "Ingresa tu correo o contraseña."
                 );
 
                 marcarError(usuario);
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!passwordValor) {
 
                 mostrarMensaje(
-                    "Ingresa tu contraseña."
+                    "Ingresa tu correo o contraseña."
                 );
 
                 marcarError(password);

@@ -19,7 +19,7 @@ def invalidar_tokens_usuario(id_usuario):
             cursor.close()
 
 
-def crear_token(id_usuario, token, expiracion):
+def crear_token_recuperacion(id_usuario, token, expiracion):
     cursor = None
 
     try:

@@ -1,8 +1,18 @@
 from config import mysql
+
+def obtener_cursor():
+    try:
+        mysql.connection.ping(True)
+    except Exception:
+        # Si la conexión anterior se perdió,
+        # Flask-MySQLdb intentará crear una nueva conexión.
+        pass
+
+    return mysql.connection.cursor()
 def buscar_por_email(email):
     cursor = None
     try:
-        cursor = mysql.connection.cursor()
+        cursor = obtener_cursor()
         cursor.execute("""
             SELECT
                 idUsu,
@@ -24,7 +34,7 @@ def buscar_por_email(email):
 def buscar_por_usuario_o_email(usuario):
     cursor = None
     try:
-        cursor = mysql.connection.cursor()
+        cursor = obtener_cursor()
         cursor.execute("""
             SELECT
                 u.idUsu,
@@ -55,7 +65,7 @@ def buscar_rol_cliente():
     cursor = None
 
     try:
-        cursor = mysql.connection.cursor()
+        cursor = obtener_cursor()
 
         cursor.execute("""
             SELECT idRol
@@ -75,7 +85,7 @@ def existe_email(email):
     cursor = None
 
     try:
-        cursor = mysql.connection.cursor()
+        cursor = obtener_cursor()
 
         cursor.execute("""
             SELECT idUsu
@@ -95,7 +105,7 @@ def existe_usuario(usuario):
     cursor = None
 
     try:
-        cursor = mysql.connection.cursor()
+        cursor = obtener_cursor()
 
         cursor.execute("""
             SELECT idUsu
@@ -122,7 +132,7 @@ def crear_usuario(
     cursor = None
 
     try:
-        cursor = mysql.connection.cursor()
+        cursor = obtener_cursor()
 
         cursor.execute("""
             INSERT INTO usuarios (
@@ -169,7 +179,7 @@ def obtener_usuario_por_id(id_usuario):
     cursor = None
 
     try:
-        cursor = mysql.connection.cursor()
+        cursor = obtener_cursor()
 
         cursor.execute("""
             SELECT
@@ -196,7 +206,7 @@ def actualizar_password(id_usuario, password_hash):
     cursor = None
 
     try:
-        cursor = mysql.connection.cursor()
+        cursor = obtener_cursor()
 
         cursor.execute("""
             UPDATE usuarios

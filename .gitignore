@@ -8,3 +8,6 @@ static/uploads/
 
 venv/
 .venv/
+
+.log
+.vscode/

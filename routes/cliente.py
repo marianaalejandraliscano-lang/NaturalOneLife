@@ -5,11 +5,6 @@ from config import mysql
 import os
 from werkzeug.utils import secure_filename
 
-
-# ==========================================================
-# CREAR NOTIFICACIÓN
-# ==========================================================
-
 def crear_notificacion(
     id_usuario,
     tipo,
@@ -60,11 +55,6 @@ def crear_notificacion(
 
         cursor.close()
 
-
-# ==========================================================
-# OBTENER NOTIFICACIONES DEL USUARIO
-# ==========================================================
-
 def obtener_notificaciones(id_usuario):
 
     cursor = mysql.connection.cursor()
@@ -105,11 +95,6 @@ def inicio():
     cursor = mysql.connection.cursor()
 
     try:
-
-        # ==================================================
-        # PRODUCTOS
-        # ==================================================
-
         cursor.execute("""
             SELECT
                 p.idPro,
@@ -130,12 +115,6 @@ def inicio():
         """)
 
         productos = cursor.fetchall()
-
-
-        # ==================================================
-        # CATEGORÍAS
-        # ==================================================
-
         cursor.execute("""
             SELECT
                 idCat,
@@ -147,12 +126,6 @@ def inicio():
         """)
 
         categorias = cursor.fetchall()
-
-
-        # ==================================================
-        # USUARIO
-        # ==================================================
-
         cursor.execute("""
             SELECT
                 idUsu,
@@ -169,12 +142,6 @@ def inicio():
         ))
 
         usuario = cursor.fetchone()
-
-
-        # ==================================================
-        # NOTIFICACIONES
-        # ==================================================
-
         cursor.execute("""
             SELECT
                 idNot,
@@ -193,12 +160,6 @@ def inicio():
         ))
 
         notificaciones = cursor.fetchall()
-
-
-        # ==================================================
-        # CONTAR NO LEÍDAS
-        # ==================================================
-
         cursor.execute("""
             SELECT COUNT(*) AS total
             FROM notificaciones
@@ -239,10 +200,6 @@ def inicio():
     finally:
 
         cursor.close()       
-   
-# ==========================================================
-# MARCAR NOTIFICACIONES COMO LEÍDAS
-# ==========================================================
 
 @app.route("/marcar-notificaciones-leidas", methods=["POST"])
 @login_requerido
@@ -486,10 +443,6 @@ def catalogo():
 
         cursor.close()
 
-# ==========================================================
-# DETALLE DEL PRODUCTO
-# ==========================================================
-
 @app.route("/producto")
 @login_requerido
 def producto():
@@ -504,11 +457,6 @@ def producto():
     cursor = mysql.connection.cursor()
 
     try:
-
-        # ==================================================
-        # OBTENER PRODUCTO
-        # ==================================================
-
         cursor.execute("""
             SELECT
                 p.*,
@@ -533,12 +481,6 @@ def producto():
             )
 
             return redirect(url_for("catalogo"))
-
-
-        # ==================================================
-        # OBTENER VALORACIONES
-        # ==================================================
-
         cursor.execute("""
             SELECT
                 v.idVal,
@@ -563,12 +505,6 @@ def producto():
         """, (id_producto,))
 
         valoraciones = cursor.fetchall()
-
-
-        # ==================================================
-        # CALCULAR PROMEDIO
-        # ==================================================
-
         cursor.execute("""
             SELECT
                 COALESCE(
@@ -592,11 +528,6 @@ def producto():
         total_valoraciones = int(
             resultado["total"] or 0
         )
-
-
-        # ==================================================
-        # VALORACIÓN DEL USUARIO ACTUAL
-        # ==================================================
 
         mi_valoracion = None
 
@@ -623,12 +554,6 @@ def producto():
             ))
 
             mi_valoracion = cursor.fetchone()
-
-
-        # ==================================================
-        # INFORMACIÓN DEL USUARIO
-        # ==================================================
-
         cursor.execute("""
             SELECT
                 idUsu,
@@ -647,12 +572,6 @@ def producto():
         """, (id_usuario,))
 
         usuario = cursor.fetchone()
-
-
-        # ==================================================
-        # MOSTRAR PRODUCTO
-        # ==================================================
-
         return render_template(
             "cliente/producto.html",
 
@@ -845,11 +764,6 @@ def editar_perfil():
     cursor = mysql.connection.cursor()
 
     try:
-
-        # ==================================================
-        # GUARDAR CAMBIOS
-        # ==================================================
-
         if request.method == "POST":
 
             # IMPORTANTE:
@@ -861,11 +775,6 @@ def editar_perfil():
             telefono = request.form.get("telefonoUsu", "").strip()
 
             foto = request.files.get("foto")
-
-            # ==================================================
-            # VALIDAR CAMPOS OBLIGATORIOS
-            # ==================================================
-
             if not nombre:
                 flash("El nombre es obligatorio.", "error")
                 return redirect(url_for("editar_perfil"))
@@ -877,10 +786,6 @@ def editar_perfil():
             if not correo:
                 flash("El correo electrónico es obligatorio.", "error")
                 return redirect(url_for("editar_perfil"))
-
-            # ==================================================
-            # ACTUALIZAR DATOS
-            # ==================================================
 
             cursor.execute("""
                 UPDATE usuarios
@@ -897,10 +802,6 @@ def editar_perfil():
                 telefono,
                 id_usuario
             ))
-
-            # ==================================================
-            # ACTUALIZAR FOTO
-            # ==================================================
 
             if foto and foto.filename:
 
@@ -967,11 +868,6 @@ def editar_perfil():
                     nombre_foto,
                     id_usuario
                 ))
-
-            # ==================================================
-            # CONFIRMAR CAMBIOS
-            # ==================================================
-
             mysql.connection.commit()
 
             flash(
@@ -982,11 +878,6 @@ def editar_perfil():
             return redirect(
                 url_for("perfil")
             )
-
-        # ==================================================
-        # MOSTRAR FORMULARIO
-        # ==================================================
-
         cursor.execute("""
             SELECT *
             FROM usuarios
@@ -1358,12 +1249,6 @@ def guardar_notificaciones():
     return redirect(
         url_for("perfil")
     )
-# ==========================================================
-# VALORACIONES DE PRODUCTOS
-# ==========================================================
-# ==========================================================
-# VALORAR PRODUCTO
-# ==========================================================
 
 @app.route(
     "/producto/<int:id>/valorar",
@@ -1384,11 +1269,6 @@ def valorar_producto(id):
         return redirect(
             url_for("producto", id=id)
         )
-
-    # ======================================================
-    # DATOS
-    # ======================================================
-
     calificacion = request.form.get(
         "calificacion",
         ""
@@ -1398,10 +1278,6 @@ def valorar_producto(id):
         "comentario",
         ""
     ).strip()
-
-    # ======================================================
-    # VALIDAR CALIFICACIÓN
-    # ======================================================
 
     try:
 
@@ -1428,11 +1304,6 @@ def valorar_producto(id):
         return redirect(
             url_for("producto", id=id)
         )
-
-    # ======================================================
-    # VALIDAR COMENTARIO
-    # ======================================================
-
     if not comentario:
 
         flash(
@@ -1469,11 +1340,6 @@ def valorar_producto(id):
     cursor = mysql.connection.cursor()
 
     try:
-
-        # ==================================================
-        # COMPROBAR PRODUCTO
-        # ==================================================
-
         cursor.execute("""
             SELECT idPro
             FROM productos
@@ -1493,11 +1359,6 @@ def valorar_producto(id):
             return redirect(
                 url_for("catalogo")
             )
-
-        # ==================================================
-        # BUSCAR VALORACIÓN EXISTENTE
-        # ==================================================
-
         cursor.execute("""
             SELECT idVal
             FROM valoraciones
@@ -1512,11 +1373,6 @@ def valorar_producto(id):
         ))
 
         existente = cursor.fetchone()
-
-        # ==================================================
-        # ACTUALIZAR
-        # ==================================================
-
         if existente:
 
             cursor.execute("""
@@ -1537,10 +1393,6 @@ def valorar_producto(id):
             mensaje = (
                 "Tu valoración fue actualizada correctamente."
             )
-
-        # ==================================================
-        # CREAR
-        # ==================================================
 
         else:
 
